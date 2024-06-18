@@ -71,10 +71,37 @@ vectorstore = Chroma.from_documents(splitted_data, embeddings, persist_directory
 vector_retriever = vectorstore.as_retriever(search_kwargs={"k":2})
 
 #integrate the vector_retriever and keyword_retriever (Hybird Search)
-keyword_retriever = BM25Retriever.from_documents(splitted_data).k=2
+keyword_retriever = BM25Retriever.from_documents(splitted_data)
+keyword_retriever.k=2
 retriever = EnsembleRetriever(retrievers=[vector_retriever,keyword_retriever], weights= [0.5,0.5])
 
+chat = ChatGroq(temperature=0, groq_api_key=groq_api_key, model_name="Llama3-8b-8192") #mixtral-8x7b-32768
+template = """
+User: You are an AI Assistant that follows instructions extremely well.
+Please be truthful and give direct answers. Please tell 'I don't know' if user query is not in CONTEXT
 
+Keep in mind, you will lose the job, if you answer out of CONTEXT questions
 
+CONTEXT: {context}
+Query: {question}
 
+Remember only return AI answer
+Assistant:
+"""
 
+prompt = ChatPromptTemplate.from_template(template)
+output_parser = StrOutputParser()
+
+chain = (
+    {
+        "context": retriever.with_config(run_name="Docs"),
+        "question": RunnablePassthrough(),
+    }
+    | prompt
+    | chat
+    | output_parser
+)
+
+query = "What is a Transformer?"
+for chunk in chain.stream(query):
+  print(chunk, end="", flush=True)
