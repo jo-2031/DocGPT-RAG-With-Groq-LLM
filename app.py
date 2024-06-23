@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from chromadb import ChromaClient
-from chromadb.vectorstore import Chroma
+from chromadb import Chroma
 from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 from langchain_groq import ChatGroq
