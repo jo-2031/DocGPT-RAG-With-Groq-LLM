@@ -5,7 +5,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain_community.vectorstores import Chroma
+from chromadb import ChromaClient
+from chromadb.vectorstore import Chroma
 from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 from langchain_groq import ChatGroq
@@ -73,8 +74,9 @@ if hugging_face_token and groq_api_key and uploaded_file is not None:
             api_key=hugging_face_token, model_name="WhereIsAI/UAE-Large-V1"
         )
 
-        # Words to vectorization and storing them in a chromadb (Vector Database)
-        vectorstore = Chroma.from_documents(splitted_data, embeddings, persist_directory="./db")
+        # Initialize ChromaClient and Chroma vectorstore
+        chroma_client = ChromaClient()
+        vectorstore = Chroma.from_documents(splitted_data, embeddings, client=chroma_client, persist_directory="./db")
         vector_retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
 
         # Integrating vector_retriever and keyword_retriever (Hybrid Search)
@@ -149,7 +151,7 @@ if hugging_face_token and groq_api_key and uploaded_file is not None:
         }
         .chat-container span {
             color: white;
-            margin: 0 10px;
+            margin: 0 10px.
         }
         @media (max-width: 600px) {
             .chat-container {
@@ -158,12 +160,12 @@ if hugging_face_token and groq_api_key and uploaded_file is not None:
                 align-items: flex-start;
             }
             .chat-container img {
-                width: 20px;
-                height: 20px;
-                margin-right: 5px;
+                width: 20px.
+                height: 20px.
+                margin-right: 5px.
             }
             .chat-container span {
-                margin: 5px 0;
+                margin: 5px 0.
             }
         }
         </style>
