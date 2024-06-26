@@ -2,7 +2,5 @@
 DocGPT - RAG With Groq LLM
 
 
-![DocGPT_WorkFlow](https://github.com/NaveenKumar075/DocGPT-RAG-With-Groq-LLM/assets/104119173/547730ea-f3e3-40c0-8a32-1294df34a6de)
-
-![Project Demo Video](https://github.com/jo-2031/DocGPT-RAG-With-Groq-LLM/assets/98604687/27d4e156-b9ad-448d-a573-1e98fdf15576)
-
+![DocGPT_WorkFlow](https://github.com/jo-2031/DocGPT-RAG-With-Groq-LLM/assets/98604687/7d348c6f-2abf-4cf7-b59e-c19f521e3f68)
+![DocGPTDemo Video](https://github.com/jo-2031/DocGPT-RAG-With-Groq-LLM/assets/98604687/0122a8d5-e212-478a-88b9-68730926e123)
